@@ -36,8 +36,8 @@ public class Robot extends LoggedRobot {
   AnalogPotentiometer shoulderPot = new AnalogPotentiometer(kShoulderAnalogInputPort);  // using default scale=1, offset=0
   AnalogPotentiometer elbowPot = new AnalogPotentiometer(kElbowAnalogInputPort);        // using default scale=1, offset=0
 
-  CANCoder shoulderEnc = new CANCoder(kShoulderEncoderId);
-  CANCoder elbowEnc = new CANCoder(kElbowEncoderId);
+  CANCoder shoulderEnc = new CANCoder(kShoulderEncoderId, "canivore");
+  CANCoder elbowEnc = new CANCoder(kElbowEncoderId, "canivore");
 
   Logger logger = Logger.getInstance();
 
