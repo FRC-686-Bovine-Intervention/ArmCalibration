@@ -66,10 +66,10 @@ public class Robot extends LoggedRobot {
   }
 
   
-  double shoulderPotAngleDeg = 0.0;
-  double    elbowPotAngleDeg = 0.0;
-  double shoulderAbsAngleDeg = 0.0;
-  double    elbowAbsAngleDeg = 0.0;
+  double shoulderPotNormalized = 0.0;
+  double    elbowPotNormalized = 0.0;
+  double   shoulderAbsAngleDeg = 0.0;
+  double      elbowAbsAngleDeg = 0.0;
   final double a = 1.0 / 100.0;   // averaging constant
 
 
@@ -77,20 +77,14 @@ public class Robot extends LoggedRobot {
   @Override
   public void robotPeriodic() {
     // apply some averaging
-    shoulderPotAngleDeg = (1-a)*shoulderPotAngleDeg + a*shoulderPot.get();
-    shoulderAbsAngleDeg = (1-a)*shoulderAbsAngleDeg + a*shoulderEnc.getAbsolutePosition();
-       elbowPotAngleDeg = (1-a)*elbowPotAngleDeg + a*elbowPot.get();
-       elbowAbsAngleDeg = (1-a)*elbowAbsAngleDeg + a*elbowEnc.getAbsolutePosition();
-    
-    // record
-    // logger.recordOutput("Raw Shoulder Pot (Deg)", shoulderPot.get());
-    // logger.recordOutput("Raw Shoulder Abs (Deg)", shoulderEnc.getAbsolutePosition());
-    // logger.recordOutput("Raw Elbow Pot (Deg)", elbowPot.get());
-    // logger.recordOutput("Raw Elbow Abs (Deg)", elbowEnc.getAbsolutePosition());    
+    shoulderPotNormalized = (1-a)*shoulderPotNormalized + a*shoulderPot.get();
+      shoulderAbsAngleDeg = (1-a)*shoulderAbsAngleDeg + a*shoulderEnc.getAbsolutePosition();
+      elbowPotNormalized = (1-a)*elbowPotNormalized + a*elbowPot.get();
+        elbowAbsAngleDeg = (1-a)*elbowAbsAngleDeg + a*elbowEnc.getAbsolutePosition();
 
-    logger.recordOutput("Avg Shoulder Pot (Deg)", shoulderPotAngleDeg);
+    logger.recordOutput("Avg Shoulder Pot (Normalized 0-1)", shoulderPotNormalized);
     logger.recordOutput("Avg Shoulder Abs (Deg)", shoulderAbsAngleDeg);
-    logger.recordOutput("Avg Elbow Pot (Deg)", elbowPotAngleDeg);
+    logger.recordOutput("Avg Elbow Pot (Normalized 0-1)", elbowPotNormalized);
     logger.recordOutput("Avg Elbow Abs (Deg)", elbowAbsAngleDeg);    
   }
 
